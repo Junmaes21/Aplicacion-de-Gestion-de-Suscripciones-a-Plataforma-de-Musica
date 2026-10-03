@@ -1,1 +1,5 @@
-variable "subscription_id" { description = "Azure subscription ID" type = string sensitive = true default = null }
+variable "subscription_id" {
+  description = "Azure subscription ID"
+  type        = string
+  sensitive   = true
+}
