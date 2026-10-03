@@ -1,5 +1,8 @@
 name: Snyk and Semgrep security
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -9,11 +12,13 @@ jobs:
       - uses: returntocorp/semgrep-action@v1
         with: { config: p/ci }
       - uses: snyk/actions/dotnet@master
+        if: ${{ secrets.SNYK_TOKEN != '' }}
         continue-on-error: true
         env: { SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} }
         with: { command: test, args: --all-projects --severity-threshold=high }
       - run: docker build --tag sonora-api:ci .
       - uses: snyk/actions/docker@master
+        if: ${{ secrets.SNYK_TOKEN != '' }}
         continue-on-error: true
         env: { SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} }
         with: { image: sonora-api:ci, args: --severity-threshold=high }
