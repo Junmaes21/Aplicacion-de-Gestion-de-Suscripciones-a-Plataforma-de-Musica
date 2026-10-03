@@ -1,0 +1,9 @@
+backend/**/bin/
+backend/**/obj/
+backend/**/music.db
+frontend/node_modules/
+frontend/dist/
+.terraform/
+*.tfstate
+*.tfstate.*
+.env

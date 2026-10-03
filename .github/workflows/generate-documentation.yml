@@ -1,0 +1,10 @@
+name: Generate documentation
+on: { workflow_dispatch: {}, push: { branches: [main] } }
+jobs:
+  diagrams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p docs && cp docs/architecture.md docs/generated-architecture.md
+      - uses: actions/upload-artifact@v4
+        with: { name: sonora-documentation, path: docs/ }

@@ -1,0 +1,10 @@
+name: Provision infrastructure
+on: { workflow_dispatch: {} }
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init && terraform validate && terraform plan
+        working-directory: terraform

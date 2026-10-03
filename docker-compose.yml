@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    ports: ["5080:8080"]
+    volumes: ["music-data:/app"]
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports: ["5173:5173"]
+    volumes: ["./frontend:/app"]
+volumes:
+  music-data:
